@@ -1,0 +1,78 @@
+
+
+
+String ，StringBuilder，StringBuffer
+Toast 原理
+如何分析对象的个数
+
+蕃茄时钟工作法
+
+apk瘦身：
+1，针对代码：使用 AndroidStudio Inspect Code 去掉冗余代码
+2，针对图片等资源：
+
+1， 使用  AndResGuard（微信资源压缩工具）
+
+
+2， shrinkResources：
+
+出现的问题：
+案例1：shrinkResources为true在打包时会删除没有用到的资源。正好表情图片是根据聊天信息中的标识匹配显示的，而且是动态获取资源id，所以在打包时将其删除了。
+案例2： 项目集成阿里百川的意见反馈，添加的安全图片只是做验证，项目里面未引用，所以会被优化掉
+
+3，minifyEnabled：//主要用来控制是否运行混淆的。
+
+5，插件化开发，H5开发
+
+6， so库的优化（armeabi-v7a）
+
+
+
+熟练使用  RxJava, Retrifit, Dagger2, AspectJ, GreenDao 等框架
+对 内存优化，卡顿优化 等有一定的经验
+
+
+内存优化：
+1，堆内存：
+    1，使用Android特有的轻量级的数据库
+    2，检查未释放的对象：Square公司的leakcanry 框架检查内存泄漏
+    3，使用严格模式 检查内存泄漏
+
+2，栈内存：实时监控 线程的数目 ，无限增长的线程会导致不定期的卡顿崩溃
+
+
+卡顿优化（渲染卡顿，耗时卡顿）：
+
+1，渲染卡顿： 开启GPU加速，图片优化（Graphics内存过大）
+
+2，耗时卡顿：
+
+1，使用 Android ProFiler的cpu模块，点击start，运行一段时间后点击 stop，然后把得到的数据按时间排序，
+这样就看得到每个方法的运行时间，把那些耗时方法放到子线程中
+2，使用 AOP框架hugo 添加代码运行时间log
+3，对于ANR可以查看日志 /data/anr/traces.txt 定位大概的anr位置
+4，使用严格模式，blockcanary 等UI卡顿检查库（https://github.com/markzhai/AndroidPerformanceMonitor）
+
+
+如何编写出高质量的代码：
+0，编写代码的时候使用严格模式（StrictMode可以检查内存泄漏）
+1，静态分析工具 FindBugs
+2，Android 静态代码扫描工具 Link
+3，代码review
+
+
+哪些组件实现了 Material Design
+RecyclerView,CardView,NavigationView,SnackBar,FloatingActionButton
+
+TCP/IP  UDP  Http  Https
+
+
+https://juejin.im/entry/58b25fe8ac502e0069d6359f
+
+
+adb shell am start -n  com.carboxtech.studymain/.MainActivity
+
+adb shell am start -n  com.carboxtech.studymain/.mvp.MvpTestActivity
+
+
+ Activity的四种加载模式

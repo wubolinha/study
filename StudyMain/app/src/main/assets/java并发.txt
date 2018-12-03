@@ -1,0 +1,120 @@
+1，线程的生命周期？
+(1)新建（new Thread）
+当创建Thread类的一个实例（对象）时，此线程进入新建状态（未被启动）。
+例如：Thread  t1=new Thread();
+(2)就绪（runnable）
+线程已经被启动，正在等待被分配给CPU时间片，也就是说此时线程正在就绪队列中排队等候得到CPU资源。例如：t1.start();
+(3)运行（running）
+线程获得CPU资源正在执行任务（run()方法），此时除非此线程自动放弃CPU资源或者有优先级更高的线程进入，线程将一直运行到结束。
+(4)堵塞（blocked）
+由于某种原因导致正在运行的线程让出CPU并暂停自己的执行，即进入堵塞状态。
+正在睡眠：用sleep(long t) 方法可使线程进入睡眠方式。一个睡眠着的线程在指定的时间过去可进入就绪状态。
+正在等待：调用wait()方法。（调用notify()方法回到就绪状态）
+被另一个线程所阻塞：调用suspend()方法。（调用resume()方法恢复）
+(5)死亡（dead）
+当线程执行完毕或被其它线程杀死，线程就进入死亡状态，这时线程不可能再进入就绪状态等待执行。
+自然终止：正常运行run()方法后终止
+异常终止：调用stop()方法让一个线程终止运行
+
+
+2，sleep，wait，suspend  这几种方法的区别？
+（1）sleep是线程类（Thread）的方法，导致此线程暂停执行指定时间，给执行机会给其他线程，
+但是监控状态依然保持，到时后会自动恢复。调用sleep不会释放对象锁。
+（2）suspend()是线程类（Thread）的方法，使得线程进入阻塞状态，不会释放对象锁，并且不会自动恢复，必须其对应的resume() 被调用，
+才能使得线程重新进入可执行状态。但由于suspend()方法很容易引起死锁问题，已经不推荐使用了。
+（3）wait是Object类的方法，对此对象调用wait方法导致本线程放弃对象锁，进入等待此对象的等待锁定池，
+只有针对此对象发出notify方法（或notifyAll）后本线程才进入对象锁定池准备获得对象锁进入运行状态。
+
+3, 如何从阻塞的状态中唤醒线程？
+通过interrupt方法可以中断处于阻塞状态的线程，直接调用interrupt方法不能中断正在运行中的线程。
+调用interrupt方法相当于将中断标志位置为true，配合isInterrupted()能够中断正在运行的线程
+
+
+
+4， Thread类的suspend()，resume()，stop() 方法为什么被弃用
+（1）suspend()，resume()：
+使得线程进入阻塞状态，不会释放对象锁，并且不会自动恢复，必须其对应的resume() 被调用，
+才能使得线程重新进入可执行状态。但由于suspend()方法很容易引起死锁问题，已经不推荐使用了。
+
+（2）stop()：  stop方法天生数据不安全，因为它在终止一个线程时会强制中断线程的执行，
+                   不管run方法是否执行完了，并且还会释放这个线程所持有的所有的锁对象。
+                    这一现象会被其它因为请求锁而阻塞的线程看到，使他们继续向下执行。
+                    这就会造成数据的不一致，我们还是拿银行转账作为例子，
+                    我们还是从A账户向B账户转账500元，我们之前讨论过，这一过程分为三步，
+                    第一步是从A账户中减去500元，假如到这时线程就被stop了，
+                    那么这个线程就会释放它所取得锁，然后其他的线程继续执行，
+                    这样A账户就莫名其妙的少了500元而B账户也没有收到钱。这就是stop方法的不安全性。
+
+
+5，java sdk 自带的同步工具类：
+CountDownLatch：线程计数器
+CyclicBarrier：线程同步屏障
+Semaphore：信号量
+
+
+6 Java同步安全机制的种实现方式
+synchronized( )同步方法或者同步代码块
+wait() 与 notify() 经典例子：交替打印 ABCABC ...
+volatile 关键字：不在线程中使用变量副本
+ThreadLocal： 单例模式下高并发线程安全
+
+
+
+7，Thread类的join方法：
+当我们调用某个线程的这个方法时，这个方法会挂起调用线程，直到被调用线程结束执行，调用线程才会继续执行。
+就是一个线程插队
+
+
+8,Lock类和Condition类
+（１）lock()，unlock() 用于代替synchronized(),注意unlock()要一定写在异常的 finally ()中
+lock(), 如果获取了锁立即返回，如果别的线程持有锁，当前线程则一直处于休眠状态，直到获取锁
+tryLock(), 如果获取了锁立即返回true，如果别的线程正持有锁，立即返回false
+tryLock(long timeout,TimeUnit unit)， 如果获取了锁定立即返回true，如果别的线程正持有锁，会等待参数给定的时间，在等待的过程中，如果获取了锁定，就返回true，如果等待超时，返回false；
+ReentrantLock可重入锁是Lock接口的实现　　
+（２）Condition类
+Condition中的await()方法相当于Object的wait()方法，Condition中的signal()方法相当于Object的notify()方法，
+Condition中的signalAll()相当于Object的notifyAll()方法。
+不同的是，Object中的wait(),notify(),notifyAll()方法是和"同步锁"(synchronized关键字)捆绑使用的；
+而Condition是需要与"互斥锁"/"共享锁"捆绑使用的。
+
+
+
+9，Callable 和 Future 的使用?
+而自从Java 1.5开始，就提供了Callable和Future，通过它们可以在任务执行完毕之后得到任务执行结果。
+Future提供了三种功能：
+　　1）判断任务是否完成；
+　　2）能够中断任务；
+　　3）能够获取任务执行结果。
+
+
+10,生产者，消费者模型的实现方式有哪些?
+（1）Object的wait() / notify()方法
+（2）Lock和Condition的await() / signal()方法
+（3）BlockingQueue阻塞队列方法
+            java.util.concurrent.ArrayBlockingQueue
+            java.util.concurrent.LinkedBlockingQueue
+            java.util.concurrent.SynchronousQueue
+            java.util.concurrent.PriorityBlockingQueue
+（4）PipedInputStream / PipedOutputStream
+
+
+11,线程安全的容器有哪些？如何保证容器是线程安全的？
+Java中线程安全的容器主要包括两类：
+（１）Vector、Hashtable，以及封装器类Collections.synchronizedList和Collections.synchronizedMap；
+ 例如：　　List list = Collections.synchronizedList(new ArrayList());
+（２）Java 5.0引入的java.util.concurrent包，其中包含并发队列、并发HashMap以及写入时复制容器。
+  ConcurrentHashMap  使用　segment 段概念，用于代替　HashTable
+　CopyOnWriteArrayList 和CopyOnWriteArraySet分别代替List和Set，主要是在遍历操作为主的情况下来代替同步的List和同步的Set，
+　BlockingQueue  阻塞队列
+  ConcurrentLinkedQueue 高性能队列
+
+
+
+12, Collections.synchronizedList　在遍历的时候是非安全的，为什么？
+我们发现了add、remove等操作都是线程安全的，加锁的对象默认是this，也即是list本身。
+但是没有针对Iterator.next做同步加锁处理。所以整个for循环是非线程安全的。
+解决：　在遍历的时候在代码中对  list 加锁
+
+
+13 想进大厂？50个多线程面试题，你会多少？（一）
+https://zhuanlan.zhihu.com/p/34678757

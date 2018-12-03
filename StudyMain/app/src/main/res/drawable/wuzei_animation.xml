@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+
+    <item
+        android:drawable="@mipmap/wuzei0001"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0007"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0013"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0019"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0022"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0025"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0031"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0034"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0040"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/wuzei0046"
+        android:duration="100" />
+
+
+</animation-list>
