@@ -4,11 +4,14 @@
     <string-array name="knowledge">
         <item>Java基础</item>
         <item>Java并发</item>
+        <item>算法</item>
+        <item>网络</item>
         <item>23种设计模式</item>
         <item>泛型，注解</item>
         <item>Rxjava基础用法</item>　　
         <item>Rxjava高级用法</item>　　
         <item>Android中的3种动画</item>　　
+        <item>Android基础</item>
         <item>MVP</item>
         <item>性能优化_ANR与卡顿</item>
         <item>性能优化_代码优化</item>
@@ -16,8 +19,6 @@
         <item>AOP_AspectJ_埋点等</item>
         <item>虚拟机原理</item>
         <item>java数据结构_集合类</item>
-        <item>java常见算法面试</item>
-        <item>TCP/IP</item>
         <item>Dagger2</item>
         <item>AndroidAnnotation</item>
         <item>事件分发机制</item>

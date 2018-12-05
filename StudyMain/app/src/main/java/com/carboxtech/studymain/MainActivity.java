@@ -12,12 +12,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.carboxtech.studymain.algorithm.AlgorithmActivity;
+import com.carboxtech.studymain.androidBase.AndroidBaseActivity;
 import com.carboxtech.studymain.animation.AnimationActivity;
 import com.carboxtech.studymain.aspectJ.DebugTool;
 import com.carboxtech.studymain.dagger2.TestDaggerActivity;
 import com.carboxtech.studymain.javabase.JavaBaseTestActivity;
 import com.carboxtech.studymain.javabase.JavaThreadTestActivity;
 import com.carboxtech.studymain.mvp.MvpTestActivity;
+import com.carboxtech.studymain.network.NetworkActivity;
 
 public class MainActivity extends Activity {
 
@@ -98,6 +101,15 @@ public class MainActivity extends Activity {
                 break;
             case "Java基础":
                 intent.setClass(this, JavaBaseTestActivity.class);
+                break;
+            case "网络":
+                intent.setClass(this, NetworkActivity.class);
+                break;
+            case "算法":
+                intent.setClass(this, AlgorithmActivity.class);
+                break;
+            case "Android基础":
+                intent.setClass(this, AndroidBaseActivity.class);
                 break;
         }
         try {
