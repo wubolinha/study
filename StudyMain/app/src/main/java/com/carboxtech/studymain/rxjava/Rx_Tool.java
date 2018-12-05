@@ -82,7 +82,7 @@ public enum Rx_Tool {
 2, Schedulers.immediate( )              当前线程
 3, Schedulers.io( )                     用于 IO 密集型任务，如果异步阻塞 IO 操作。
 4, Schedulers.newThread( )              创建一个新的线程
-5, AndroidSchedulers.mainThread()       Android 的 UI 线程，用于操作 UI。
+5, AndroidSchedulers.mainThread()       View 的 UI 线程，用于操作 UI。
 
  * ****************/
     public void  tool_observeOn(){

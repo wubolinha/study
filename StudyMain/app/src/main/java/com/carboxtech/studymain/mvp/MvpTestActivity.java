@@ -16,7 +16,7 @@ import com.carboxtech.studymain.mvp.Presenter.MvpPresenter;
  *
  *    mvp 与 dagger2  混合使用
  *
- *    Android MVP架构搭建:
+ *    View专题.txt MVP架构搭建:
  *   http://www.jcodecraeer.com/a/anzhuokaifa/2017/1020/8625.html?1508484926
  *
  * *****/

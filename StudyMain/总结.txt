@@ -75,4 +75,3 @@ adb shell am start -n  com.carboxtech.studymain/.MainActivity
 adb shell am start -n  com.carboxtech.studymain/.mvp.MvpTestActivity
 
 
- Activity的四种加载模式

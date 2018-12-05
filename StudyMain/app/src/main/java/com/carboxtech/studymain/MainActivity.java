@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -56,6 +58,8 @@ public class MainActivity extends Activity {
 //            Thread.sleep(100);
 //        }
 
+        Handler handler=new Handler();
+
 
     }
 
@@ -103,5 +107,8 @@ public class MainActivity extends Activity {
         }
 
     }
+
+
+
 
 }

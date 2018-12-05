@@ -1,0 +1,107 @@
+
+1，为什么不能在子线程中更新ui？为什么不能在主线程中访问网络？
+    在 view 的 requestLayout 方法中有 checkThread()方法来检测当前线程是否是主线程。如果不是那就回抛出异常。
+    ViewRootImpl的创建是在onResume方法回调之后，而我们一开篇是在onCreate方法中创建子线程并访问UI，
+        在那个时刻，ViewRootImpl还没有来得及创建，无法检测当前线程是否是UI线程，所以程序没有崩溃。
+
+
+2，Activity的启动和布局创建过程
+
+3，Android中的动态加载（热修复）
+
+
+4，Android中的动态代理运用（Hook）
+
+
+
+5，Handler 相关知识点
+   1 )android默认新建的一个线程不会开启消息循环，所以在 new Handler之前，要加 Looper.prepare(),
+      之后要加 Looper.loop() ;
+   2 ) HandlerThread 继承 Thread ，内部建立了 Looper(),
+
+
+
+6, Binder通信
+
+
+
+
+7, android 内部是怎么找到 ANR 的，就是主线程发生了阻塞，是怎么自检的
+   Service Timeout触发时机，简单说就是 AMS( ActivityManagerService)  中的mHandler收到SERVICE_TIMEOUT_MSG消息时触发。
+   出现ANR的情况：
+        1)输入事件(按键和触摸事件)5s内没被处理:
+        2）BroadcastReceiver的事件(onRecieve方法)在规定时间内没处理完(前台广播为10s，后台广播为60s)：
+        3）service 前台20s后台200s未完成启动
+
+  ANR 发生的大概原理如下：
+            1.在进行相关操作调用hander.sendMessageAtTime()发送一个ANR的消息，
+                     延时时间为ANR发生的时间(如前台Service是当前时间20s之后)。
+            2.进行相关的操作3.操作结束后向remove掉该条message。如果相关的操作在规定时间没有执行完成，
+                     该条message将被handler取出并执行，就发生了ANR。
+
+
+8, Activity的四种加载模式(LaunchMode)的应用场景？
+   standard
+   singleTop
+   singleTask
+   singleInstance
+
+
+
+9.前台广播为，后台广播 有什么不同
+    默认是后台广播。
+    广播中添加一个：intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);就变成前台广播了。 当发送广播时，允许其在前台运行的接受者拥有更高的优先级，更短的超时间隔。
+    前台队列的超时时间是10s，而后台是60s. 后台广播的设计思想就是当前应用优先，尽可能多让收到广播的应用有充足的时间把事件做完。
+    而前台广播的目的是紧急通知，设计上就倾向于当前应用赶快处理完，尽快传给下一个。
+
+
+
+国内一线互联网公司内部面试题库[转]
+https://www.jianshu.com/p/2125741d9038?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation
+
+Java面试宝典Beta5.0
+https://www.jianshu.com/p/fb7d48083e5e?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation
+
+
+
+
+10，Android编译步奏
+    . build/envsetup.sh
+    lunch
+    make -j 10
+
+11，Android中特有的数据结构
+
+ArrayMap
+SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
+
+
+12 looper架构
+
+
+13  binder工作原理
+
+14 ActivityThread，Ams，Wms的工作原理
+
+
+
+15，android从网络加载一个10M的图片，说下注意事项
+图片缓存、异常恢复、质量压缩
+
+
+16,Fragment如果在Adapter中使用应该如何解耦？
+
+17,大体说清一个应用程序安装到手机上时发生了什么
+
+18,App启动流程，从点击桌面开始
+
+
+19,Android中进程内存的分配，能不能自己分配定额内存？
+
+20,如何保证一个后台服务不被杀死？（相同问题：如何保证service在后台不被kill？）比较省电的方式是什么？
+
+21,App中唤醒其他进程的实现方式
+
+
+
+

@@ -1,0 +1,46 @@
+
+
+Requestlayout,onlayout,onDraw,DrawChild区别与联系-猎豹
+
+invalidate()和postInvalidate()的区别及使用-百度
+
+View刷新机制-百度-美团
+
+View绘制流程-百度
+
+
+Touch事件传递流程-小米
+
+
+Activity/Window/View三者的差别,fragment的特点-360
+
+LinearLayout和RelativeLayout性能对比-百度
+
+
+优化自定义view百度-乐视-小米
+
+
+视觉卡顿是怎么来的？
+
+Android系统每隔16ms发出VSYNC信号，触发对UI进行渲染，如果每次渲染都成功，
+这样就能够达到流畅的画面所需要的60fps，为了能够实现60fps，
+这意味着程序的大多数操作都必须在16ms内完成。
+
+在开发者选项中有个“ GPU呈现模式分析(Profile GPU rendering，选择在adb shell dumpsys gfxinfo中)”功能，
+在开启这个功能后，系统就会记录保留每个界面最后128帧图像绘制的相关时间信息。
+在开启这个功能后，重新启动APP，滑动页面然后执行adb命令
+
+adb shell dumpsys gfxinfo com.xiaomi.shop
+测量UI帧率：
+adb shell dumpsys gfxinfo com.carboxtech.txzvoice
+adb shell dumpsys gfxinfo com.carboxtech.txzvoice framestats
+
+使用  gamebench 等app 测试
+
+
+
+自定义控件原理
+
+
+自定义View注意事项
+渲染帧率、内存
