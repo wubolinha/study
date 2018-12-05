@@ -209,3 +209,8 @@ https://blog.csdn.net/self_study/article/details/55050627
 25,逻辑地址与物理地址，为什么使用逻辑地址？
 
 
+26,死锁的四个必要条件
+
+
+
+
