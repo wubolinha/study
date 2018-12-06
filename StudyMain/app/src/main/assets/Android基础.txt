@@ -7,6 +7,8 @@
 
 2，Activity的启动和布局创建过程
 
+
+
 3，Android中的动态加载（热修复）
 
 
@@ -77,6 +79,8 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 
 12 looper架构
+    ActivityThread.main()是app启动的真正入口，
+    ActivityThread 对应的 Handler  的 handleMessage 的小部分
 
 
 13  binder工作原理
@@ -92,16 +96,39 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 16,Fragment如果在Adapter中使用应该如何解耦？
 
 17,大体说清一个应用程序安装到手机上时发生了什么
+    PackageManagerService 安负责装(概括为：拷贝，解析，优化，更新系统数据库)
+    1,将apk文件复制到data/app目录
+    2,解析apk信息(解析menifest，签名，校验)
+    3,dexopt操作（ 把优化后的odex文件的后缀也是.dex,放在data/dalvik-cache，ART会使用dex2oat程序所有的字节码预编译成了机器码）
+    4,更新权限信息（/data/system/packages.xml，安装的APK的所有属性，权限等信息。当系统中的APK安装、删除、升级时，文件就会被更新）
+    5,完成安装,发送Intent.ACTION_PACKAGE_ADDED广播
+
+  安装过程： 复制apk安装包到/data/app目录下，解压并扫描安装包，
+            解析AndroidManifest文件，并在/data/data目录下创建对应的应用数据目录，
+            然后针对dalvik/art环境优化dex文件，保存到dalvik-cache目录，
+            将AndroidManifest文件解析出的组件、权限注册到PackageManagerService，完成后发送广播。
+
+
 
 18,App启动流程，从点击桌面开始
 
 
 19,Android中进程内存的分配，能不能自己分配定额内存？
+    每个app分配的内存大小取决于 /system/build.prop 里的参数
+
+
 
 20,如何保证一个后台服务不被杀死？（相同问题：如何保证service在后台不被kill？）比较省电的方式是什么？
+
 
 21,App中唤醒其他进程的实现方式
 
 
+22，startActivityForResult(Intent intent，int requestCode)：
+    以指定指定的请求码（requestCode）启动Activity，并且程序将会等到新启动Activity的结果
+    (通过重写onActivityResult()方法来获取)
+    finishActivity(intrequestCode):结束以startActivityForResult(Intent intent，int requestCode)
+    方法启动的Activity。
 
 
+http://gityuan.com/

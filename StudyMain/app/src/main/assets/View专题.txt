@@ -1,46 +1,73 @@
 
-
-Requestlayout,onlayout,onDraw,DrawChild区别与联系-猎豹
-
-invalidate()和postInvalidate()的区别及使用-百度
-
-View刷新机制-百度-美团
-
-View绘制流程-百度
+https://www.cnblogs.com/dasusu/p/8311324.html
 
 
-Touch事件传递流程-小米
-
-
-Activity/Window/View三者的差别,fragment的特点-360
-
-LinearLayout和RelativeLayout性能对比-百度
-
-
-优化自定义view百度-乐视-小米
-
-
-视觉卡顿是怎么来的？
-
-Android系统每隔16ms发出VSYNC信号，触发对UI进行渲染，如果每次渲染都成功，
-这样就能够达到流畅的画面所需要的60fps，为了能够实现60fps，
-这意味着程序的大多数操作都必须在16ms内完成。
-
-在开发者选项中有个“ GPU呈现模式分析(Profile GPU rendering，选择在adb shell dumpsys gfxinfo中)”功能，
-在开启这个功能后，系统就会记录保留每个界面最后128帧图像绘制的相关时间信息。
-在开启这个功能后，重新启动APP，滑动页面然后执行adb命令
-
-adb shell dumpsys gfxinfo com.xiaomi.shop
-测量UI帧率：
-adb shell dumpsys gfxinfo com.carboxtech.txzvoice
-adb shell dumpsys gfxinfo com.carboxtech.txzvoice framestats
-
-使用  gamebench 等app 测试
+1,Requestlayout,onlayout,onDraw,DrawChild区别与联系-猎豹
 
 
 
-自定义控件原理
+2,invalidate()和postInvalidate()的区别及使用-百度
 
 
-自定义View注意事项
-渲染帧率、内存
+3,View刷新机制-百度-美团
+    在Android的布局体系中，父View负责刷新、布局显示子View；而当子View需要刷新时，则是通知父View来完成。
+
+    其实，以前我一直以为如果界面上某个小小的 View 发起了 invalidate() 重绘之类的操作，
+    那么应该就只是它自己的 onLayout(), onDraw() 被调用来重绘而已。最后才清楚，
+    原来，即使再小的 View，如果发起了重绘的请求，那么也需要先层层走到 ViewRootImpl 里去，
+    而且还不是马上就执行重绘操作，而是需要等待下一个屏幕刷新信号来的时候，
+    再从 DecorView 开始层层遍历到这些需要刷新的 View 里去重绘它们。
+
+
+答：造成丢帧大体上有两类原因？
+    一是遍历绘制 View 树计算屏幕数据的时间超过了 16.6ms；
+    二是，主线程一直在处理其他耗时的消息，导致遍历绘制 View 树的工作迟迟不能开始，从而超过了 16.6 ms 底层切换下一帧画面的时机。
+
+
+DecorView ，ViewRootImpl
+
+
+
+4,View绘制流程-百度
+    1)屏幕每隔 16.6 ms 刷新一次
+    2） 当 View 发起重绘操作 invalidate() 时，最后也调用了 scheduleTraversals() 这个方法
+
+
+
+
+
+5,Touch事件传递流程-小米
+
+
+6,Activity/Window/View三者的差别,fragment的特点-360
+
+7,LinearLayout和RelativeLayout性能对比-百度
+
+
+8,优化自定义view百度-乐视-小米
+
+
+9,视觉卡顿是怎么来的？
+
+10,Android系统每隔16ms发出VSYNC信号，触发对UI进行渲染，如果每次渲染都成功，
+    这样就能够达到流畅的画面所需要的60fps，为了能够实现60fps，
+    这意味着程序的大多数操作都必须在16ms内完成。
+
+    在开发者选项中有个“ GPU呈现模式分析(Profile GPU rendering，选择在adb shell dumpsys gfxinfo中)”功能，
+    在开启这个功能后，系统就会记录保留每个界面最后128帧图像绘制的相关时间信息。
+    在开启这个功能后，重新启动APP，滑动页面然后执行adb命令
+
+    adb shell dumpsys gfxinfo com.xiaomi.shop
+    测量UI帧率：
+    adb shell dumpsys gfxinfo com.carboxtech.txzvoice
+    adb shell dumpsys gfxinfo com.carboxtech.txzvoice framestats
+
+    使用  gamebench 等app 测试
+
+
+
+11,自定义控件原理
+
+
+12,自定义View注意事项
+  渲染帧率、内存

@@ -17,4 +17,12 @@ public class AndroidBaseActivity extends AppCompatActivity {
         androidBaseInfo= (TextView) findViewById(R.id.androidBaseInfo);
         androidBaseInfo.setText( AssetsTool.getText("Android基础.txt",this));
     }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+    }
+
+
 }
