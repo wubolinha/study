@@ -85,12 +85,14 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 13  binder工作原理
 
+
+
 14 ActivityThread，Ams，Wms的工作原理
 
 
 
 15，android从网络加载一个10M的图片，说下注意事项
-图片缓存、异常恢复、质量压缩
+    图片缓存、异常恢复、质量压缩
 
 
 16,Fragment如果在Adapter中使用应该如何解耦？

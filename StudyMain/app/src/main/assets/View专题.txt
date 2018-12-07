@@ -23,31 +23,48 @@ https://www.cnblogs.com/dasusu/p/8311324.html
     一是遍历绘制 View 树计算屏幕数据的时间超过了 16.6ms；
     二是，主线程一直在处理其他耗时的消息，导致遍历绘制 View 树的工作迟迟不能开始，从而超过了 16.6 ms 底层切换下一帧画面的时机。
 
+https://www.cnblogs.com/dasusu/p/8311324.html
 
-DecorView ，ViewRootImpl
+DecorView ：Android 顶级视图，它是竖直的Linearlayout，上面是标题，下面是内容栏（id是content）
+ViewRootImpl：ViewRootImpl 是实现 View 的绘制的类，里面有三个方法是关键：performMeasure，performLayout，事件分发也是ViewRootImpl 完成的
+
+ViewRootImpl：  每个界面上的 View 的刷新，绘制，点击事件的分发其实都是由 ViewRootImpl 作为发起者的，
+                由 ViewRootImpl 控制这些操作从 DecorView 开始遍历 View 树去分发处理。
+                在ViewRootImpl未初始化创建的时候是可以进行子线程更新UI的，而它创建是在activity.handleResumeActivity方法调用，即DecorView被添加到WindowManager的时候
+                ViewRootImpl绘制View的时候会先检查当前线程是否是主线程，是才能继续绘制下去
 
 
 
 4,View绘制流程-百度
-    1)屏幕每隔 16.6 ms 刷新一次
-    2） 当 View 发起重绘操作 invalidate() 时，最后也调用了 scheduleTraversals() 这个方法
 
-
-
+    View的整个绘制流程可以分为以下三个阶段：
+    1） onMeasure(int widthMeasureSpec, int heightMeasureSpec)  判断是否需要重新计算View的大小，需要的话则计算；
+    2   onLayout(boolean changed, int left, int top, int right, int bottom)  判断是否需要重新计算View的位置，需要的话则计算；
+    3）onDraw(Canvas canvas) 判断是否需要重新绘制View，需要的话则重绘制。
+     注意：
+        1)屏幕每隔 16.6 ms 刷新一次
+        2） 当 View 发起重绘操作 invalidate() 时，最后也调用了 ViewRootImpl 的 scheduleTraversals() 这个方法
 
 
 5,Touch事件传递流程-小米
 
 
+
 6,Activity/Window/View三者的差别,fragment的特点-360
 
+
+
 7,LinearLayout和RelativeLayout性能对比-百度
+
 
 
 8,优化自定义view百度-乐视-小米
 
 
 9,视觉卡顿是怎么来的？
+    1,布局复杂，绘制时间超过 16.6 ms
+    2,在主线程中做了太多的事情，影响了布局绘制
+
 
 10,Android系统每隔16ms发出VSYNC信号，触发对UI进行渲染，如果每次渲染都成功，
     这样就能够达到流畅的画面所需要的60fps，为了能够实现60fps，
@@ -71,3 +88,5 @@ DecorView ，ViewRootImpl
 
 12,自定义View注意事项
   渲染帧率、内存
+
+
