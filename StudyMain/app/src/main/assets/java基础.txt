@@ -213,4 +213,16 @@ https://blog.csdn.net/self_study/article/details/55050627
 
 
 
+27，java中的 top-The-World 概念：
+
+　　Java中一种全局暂停的现象。
+
+全局停顿，所有Java代码停止，native代码可以执行，但不能和JVM交互
+
+多半情况下是由于GC引起。
+
+    少数情况下由其他情况下引起，如：Dump线程、死锁检查、堆Dump。
+
+
+
 

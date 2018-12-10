@@ -12,8 +12,6 @@
 
 
 
-
-
 3，Android中的动态加载（热修复）
 
 
@@ -97,10 +95,12 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 14 ActivityThread，Ams，Wms 的工作原理
 
-    ActivityThread: App入口类，
-    Ams:
-    Wms:
-
+    ActivityThread:   App入口类，
+    Ams:  对于Android四大组件的管理，包括启动，生命周期管理等
+    Wms:  窗口的管理者，它负责窗口的启动、添加和删除， 窗口的大小和层级
+          事件的分发
+          WmS不在意该窗口是哪个应用程序的，WmS按一定得规则判断哪个窗口处于活动状态
+          不负责View绘制
 
 
 
@@ -110,6 +110,8 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 
 16,Fragment如果在Adapter中使用应该如何解耦？
+
+
 
 17,大体说清一个应用程序安装到手机上时发生了什么
     PackageManagerService 安负责装(概括为：拷贝，解析，优化，更新系统数据库)
@@ -148,3 +150,9 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 
 http://gityuan.com/
+
+
+
+23，Android中的权限管理机制
+
+

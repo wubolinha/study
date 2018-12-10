@@ -2,8 +2,13 @@
 https://www.cnblogs.com/dasusu/p/8311324.html
 
 
-1,Requestlayout,onlayout,onDraw,DrawChild区别与联系-猎豹
+1,Requestlayout,onlayout,onDraw,DrawChild 区别与联系-猎豹
+    Requestlayout：
+    调用requestLayout()方法的时机是：当前View发生了一些改变，这个改变使得现有的View失效，所以调用requestLayout()方法对View树进行重新布局，过程包括了measure()和layout()过程，但不会调用draw()过程，即不会发生重新绘制视图过程。
 
+    onlayout：自定义view的三大方法之一（View需要给自己设置大小和位置了或者ViewGroup需要给子View和ViewGroup自身时调用。）
+    onDraw：自定义view的三大方法之一
+    DrawChild： drawChild()去重新回调每个子视图的draw()方法
 
 
 2,invalidate()和postInvalidate()的区别及使用-百度
@@ -54,11 +59,15 @@ ViewRootImpl：  每个界面上的 View 的刷新，绘制，点击事件的分
 
 
 
-7,LinearLayout和RelativeLayout性能对比-百度
+7, LinearLayout 和 RelativeLayout 性能对比-百度
+   RelativeLayout:  需要横向纵向分别进行一次排序测量。
+   LinearLayout: 横纵方向判断已经配置好，   不使用weight属性，将只进行一次measure的过程。
 
 
-
-8,优化自定义view百度-乐视-小米
+8,优化自定义view （百度-乐视-小米）
+     1，尽量View的层级是扁平化的
+     2，onDraw 绘制要快（ 1借助缓存， 2不在onDraw里做对象初始化 ）
+     3，view 自己的状态保存
 
 
 9,视觉卡顿是怎么来的？
@@ -83,10 +92,12 @@ ViewRootImpl：  每个界面上的 View 的刷新，绘制，点击事件的分
 
 
 
-11,自定义控件原理
+11,自定义控件原理：
+        View的绘制基本上由 onMeasure()、onLayout()、onDraw()这个三个函数完成
+
 
 
 12,自定义View注意事项
-  渲染帧率、内存
+   渲染帧率、内存
 
 
