@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.carboxtech.studymain.R;
 import com.carboxtech.studymain.tool.AssetsTool;
 
+import java.lang.reflect.Proxy;
+
 public class JavaBaseTestActivity extends AppCompatActivity {
 
     TextView jbt1;
@@ -16,6 +18,7 @@ public class JavaBaseTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_java_base_test2);
         jbt1 = (TextView) findViewById(R.id.jbt1);
         jbt1.setText(    AssetsTool.getText("java基础.txt",this)    );
+
     }
 
 

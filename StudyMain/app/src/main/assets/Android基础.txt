@@ -6,6 +6,11 @@
 
 
 2，Activity的启动和布局创建过程
+    ZygoteInit启动->ActivityThread.mian ->创建主线程Looper循环->
+    AMS(ActivityManagerService的要求，通过IApplicationTHread的接口)负责调度和执行activities、broadcasts和其它操作
+    ApplicationThread：首先它不是一个线程，而是一个Binder对象
+
+
 
 
 
@@ -24,7 +29,7 @@
 
 
 6, Binder通信
-
+        个人认为Binder机制在Java层是很好理解的，只需要记住，不同进程之间都是拿对方的代理对象进行干活的
 
 
 
@@ -74,7 +79,7 @@ https://www.jianshu.com/p/fb7d48083e5e?utm_campaign=maleskine&utm_content=note&u
 
 11，Android中特有的数据结构
 
-ArrayMap
+ArrayMap  : 对标java 中的 hashmap
 SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 
@@ -84,10 +89,19 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 
 13  binder工作原理
+    不同进程之间都是拿对方的代理对象进行干活的
+    在Binder的client部分就是通过代理模式来访问Server端的
+    Binder是一个非常典型的代理模式，是一种远程代理，实际上Proxy代理的是另外一个进程中的Stub对象。
+    内部是将接口函数标记为对应的ID，然后根据这个ID来标识目前调用的是哪一个函数
 
 
+14 ActivityThread，Ams，Wms 的工作原理
 
-14 ActivityThread，Ams，Wms的工作原理
+    ActivityThread: App入口类，
+    Ams:
+    Wms:
+
+
 
 
 
