@@ -1,0 +1,103 @@
+
+1,如何桥接原生View？
+参考 ：  https://blog.csdn.net/u013718120/article/details/79978723
+
+   1)继承SimpleViewManager的子类，并实现getName、createViewInstance、@ReactProp注解的方法
+   2）实现包管理器接口ReactPackage，即普通模块类注册到了createNativeModules方法中，
+        而UI模块是需要注册到createViewManager方法中。
+    3）将包管理类添加到Application的getPackages：
+    4）上层封装：
+            let BlurImageView = requireNativeComponent('BlurImageView', BlurImageViewComponent);
+
+            class BlurImageViewComponent extends Component {
+
+                render() {
+                    return <BlurImageView  {...this.props}/>
+                }
+            }
+    5）js 中调用：
+             <BlurImageViewComponent
+                                style={styles.imageStyle}
+                                imgSource={ this.state.coverUrlLarge }
+                            />
+
+
+2，在 reactnative中 如何实现  java 和 rn 通信
+    1）继承 ReactContextBaseJavaModule 类，并实现 getName方法，被js调用的方法使用 @ReactMethod 注解
+    2）实现包管理器接口ReactPackage，即普通模块类注册到了createNativeModules方法中，
+        而UI模块是需要注册到createViewManager方法中。
+    3）将包管理类添加到Application的getPackages：
+    4）js 调用 java 的3 种方法：
+            1. NativeModules.TingModule.getCallbackData( );  // TingModule是 getName方法返回的值，getCallbackData 是  @ReactMethod 注解的方法
+            2. NativeModules.TingModule.getPromiseData(message).then(
+                     (data)=>{
+
+                     }
+                 ).catch(
+                     alert("PromiseTool error")
+                 );
+            3. DeviceEventEmitter.addListener  监听 发来的 消息
+
+       java给 js发消息：
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, params);
+
+
+
+3，redux 的用法
+
+
+
+4，组件的生命周期
+         初始化：
+            getDefaultProps：组件实例创建前调用，多个实例间共享引用。注意：如果父组件传递过来的Props和你在该函数中定义的Props的key一样，将会被覆盖。
+
+            getInitalState:组件示例创建的时候调用的第一个函数。主要用于初始化state。注意：为了在使用中不出现空值，建议初始化state的时候尽可能给每一个可能用到的值都赋一个初始值。
+
+            componentWillMount：在render前，getInitalState之后调用。仅调用一次，可以用于改变state操作。
+
+            render：组件渲染函数，会返回一个Virtual DOM，只允许返回一个最外层容器组件。render函数尽量保持纯净，只渲染组件，不修改状态，不执行副操作（比如计时器）。
+
+            componentDidMount:在render渲染之后，React会根据Virtual DOM来生成真实DOM，生成完毕后会调用该函数。在浏览器端（React），我们可以通过this.getDOMNode()来拿到相应的DOM节点。然而我们在RN中并用不到，在RN中主要在该函数中执行网络请求，定时器开启等相关操作
+
+         运行中:
+           componentWillReceiveProps(nextProps)：props改变（父容器来更改或是redux），将会调用该函数。新的props将会作为参数传递进来，老的props可以根据this.props来获取。我们可以在该函数中对state作一些处理。注意：在该函数中更新state不会引起二次渲染。
+
+           boolean shouldComponentUpdate(object nextProps, object nextState)：该函数传递过来两个参数，新的state和新的props。state和props的改变都会调到该函数。该函数主要对传递过来的nextProps和nextState作判断。如果返回true则重新渲染，如果返回false则不重新渲染。在某些特定条件下，我们可以根据传递过来的props和state来选择更新或者不更新，从而提高效率。
+
+           componentWillUpdate(object nextProps, object nextState)：与componentWillMount方法类似，组件上会接收到新的props或者state渲染之前，调用该方法。但是不可以在该方法中更新state和props。
+
+           render：跟初始化的时候功能一样。
+
+           componentDidUpdate(object prevProps,object prevState):和初始化时期的componentDidMount类似，在render之后，真实DOM生成之后调用该函数。传递过来的是当前的props和state。在该函数中同样可以使用this.getDOMNode()来拿到相应的DOM节点。如果你需要在运行中执行某些副操作，请在该函数中完成。
+
+
+5  组件的属性和状态
+
+props：属性，是在父组件中指定的，指定后在组件的生命周期中不再改变
+state：状态，对于需要改变的数据，使用 state  ，一般来说，需要在 constructor 中初始化 state ，
+       需要修改时调用 setState 方法
+        组件用state作为数据来源，当state属性值发生改变时，组件就会发生重绘，触发render()方法，渲染UI界面。数据变化后调用this.setState()改变state属性值来更新界面(非及时)。
+
+
+
+6  组件通信方式。
+    父组件 - 子组件： 通过  props
+    使用  DeviceEventEmitter  发送和接受事件
+
+
+
+
+7 redux中 ， Action 的 flux 标准定义一般是怎样的
+
+action 一般具有下面四个属性：
+type：类型
+payload：载荷
+error：是否出错
+meta：可选参数
+
+
+
+
+
+
+

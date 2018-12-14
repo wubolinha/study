@@ -81,9 +81,38 @@ ArrayMap  : 对标java 中的 hashmap
 SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 
+
 12 looper架构
-    ActivityThread.main()是app启动的真正入口，
-    ActivityThread 对应的 Handler  的 handleMessage 的小部分
+    要理解Handler的消息机制，就不得不说 Handler/Looper/Message/MessageQueue/这四4个类
+    Handler：  发送和处理消息和Runnable对象
+    Looper：   不断的循环执行(Looper.loop)，按分发机制将消息分发给目标处理者
+    Message：  消息
+    MessageQueue： 消息队列的
+
+
+    进一步问： Handler 为什么可以切换线程 ？
+        其实Handler机制的实现原理很简单, 就是通过共享变量来实现的，在Handler机制中充当共享变量角色的就是MessageQueue对象.
+        在 MessageQueue 中入队做了 synchronized (this)  处理
+        也可以理解为：跨线程是因为，谁开启的消息循环，Handler回调(dispatchMessage())就在哪个线程执行，跟在哪里发送的消息无关。
+
+
+        但是如果一个线程有多个Handler呢？难道每个Handler都需要一个 Looper 吗？
+        这就用到  ThreadLocal 了，他可以让不同的线程取出来的 Looper 是唯一的。
+          Looper 类中有常量：
+               private static final ThreadLocal<Looper> threadLocal=new ThreadLocal<>();
+               在 public  static void prepare() 中：
+                            threadLocal.set(new Looper() );
+
+详解ThreadLocal
+    https://juejin.im/post/59c7b3105188257a3a52c49d
+    为不同的线程创建变量副本（以线程为key进行存出）
+            ThreadLocal<Boolean> mBooleanThreadLocal = new ThreadLocal<>();
+             mBooleanThreadLocal.set(true);
+
+在子线程中创建Handler3步曲：
+        Looper.prepare();
+        new Handler()
+        Looper.loop();
 
 
 13  binder工作原理
@@ -100,7 +129,7 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
     Wms:  窗口的管理者，它负责窗口的启动、添加和删除， 窗口的大小和层级
           事件的分发
           WmS不在意该窗口是哪个应用程序的，WmS按一定得规则判断哪个窗口处于活动状态
-          不负责View绘制
+          不负责View绘制（SurfaceFlinger 进程 负责绘制）
 
 
 
@@ -129,6 +158,11 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 
 18,App启动流程，从点击桌面开始
+    Launcher所在的进程，启动远程进程，利用Binder发送消息给system_server进程（ActiivityManagerService）；
+    AMS启动进程的操作会先调用AMS.startProcessLocked方法，内部调用 Process.start(android.app.ActivityThread);而后通过socket通信告知Zygote进程fork子进程，即app进程。
+    进程创建后将ActivityThread加载进去，执行ActivityThread.main()方法。
+    创建主线程循环，通过binder 告诉 AMS 进程创建成功，AMS通过 ApplicationThreadProxy 来控制生命周期
+
 
 
 19,Android中进程内存的分配，能不能自己分配定额内存？
@@ -140,6 +174,34 @@ SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 
 21,App中唤醒其他进程的实现方式
+
+    第一种：直接通过包名：
+        Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.joyodream.jiji");
+                 startActivity(LaunchIntent);
+
+    第二种：通过自定义的Action：
+
+                 Intent intent = new Intent();
+                 intent.setAction("com.joyodream.jiji.main");
+                 MainActivity.this.startActivity(intent);
+
+                <intent-filter>
+                 <action android:name="com.joyodream.jiji.main" />
+                 <category android:name="android.intent.category.DEFAULT" />
+             </intent-filter>
+
+    第三种：通过Scheme：
+                Intent intent = new Intent();
+                 intent.setData(Uri.parse("joyodream://......"));
+                 startActivity(intent);
+
+            <intent-filter>
+                 <action android:name="android.intent.action.VIEW" />
+                 <category android:name="android.intent.category.DEFAULT" />
+                 <data android:scheme="joyodream" android:ssp="jiji" />
+             </intent-filter>
+
+        如URI是“http://www.baidu.com”，可以分成scheme部分"http"和ssp部分"//www.baidu.com"
 
 
 22，startActivityForResult(Intent intent，int requestCode)：
@@ -158,6 +220,19 @@ http://gityuan.com/
 
 
 24, webview+html 混合开发（java与js相互调用）
+    1） Android 调用  js:
+        在 Android 中创建通往 javascript 的接口;
+        在 html  中定义要执行的方法;
+        在  Android  中的具体事件中进行调用。
+         contentWebView.loadUrl("javascript:javacalljs()");
 
 
-25，ReactNative 相关技术
+   js中调用Android 方法  :
+       html中调用  Android 方法则反来，在 Andorid 中定义要调用的方法， html 中绑定事件进行调用。
+       <button onclick="window.wjj.startFunction()">点击调用java 代码</button>
+        startFunction 在java代码中是被 @JavascriptInterface
+                                 注解的类：	public void startFunction()
+
+
+
+

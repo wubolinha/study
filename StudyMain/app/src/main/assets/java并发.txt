@@ -57,7 +57,8 @@ Semaphore：信号量
 synchronized( )同步方法或者同步代码块
 wait() 与 notify() 经典例子：交替打印 ABCABC ...
 volatile 关键字：不在线程中使用变量副本
-ThreadLocal： 单例模式下高并发线程安全
+ThreadLocal： 单例模式下高并发线程安全，
+        ThreadLocal<Boolean> mBooleanThreadLocal = new ThreadLocal<>();
 
 
 
@@ -123,3 +124,7 @@ https://zhuanlan.zhihu.com/p/34678757
 
 
 14，对象锁和类锁是否会互相影响？
+        不会，锁住的对象不一样
+
+
+

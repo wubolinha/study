@@ -19,10 +19,20 @@ public class JavaBaseTestActivity extends AppCompatActivity {
         jbt1 = (TextView) findViewById(R.id.jbt1);
         jbt1.setText(    AssetsTool.getText("java基础.txt",this)    );
 
+
+        // 理解  ThreadLocal
+        ThreadLocal<Boolean> mBooleanThreadLocal = new ThreadLocal<>();
+        mBooleanThreadLocal.set(true);
+
+
+
+
     }
 
 
-
-
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 }
