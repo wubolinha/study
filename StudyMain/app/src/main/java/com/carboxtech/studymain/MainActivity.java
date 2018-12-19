@@ -21,6 +21,7 @@ import com.carboxtech.studymain.javabase.JavaBaseTestActivity;
 import com.carboxtech.studymain.javabase.JavaThreadTestActivity;
 import com.carboxtech.studymain.mvp.MvpTestActivity;
 import com.carboxtech.studymain.network.NetworkActivity;
+import com.carboxtech.studymain.rn.RNActivity;
 
 public class MainActivity extends Activity {
 
@@ -93,6 +94,7 @@ public class MainActivity extends Activity {
 
                 intent.setClass(this, MvpTestActivity.class);
                 break;
+
             case "Android中的3种动画":
                 intent.setClass(this, AnimationActivity.class);
                 break;
@@ -104,6 +106,9 @@ public class MainActivity extends Activity {
                 break;
             case "网络":
                 intent.setClass(this, NetworkActivity.class);
+                break;
+            case "RN开发":
+                intent.setClass(this, RNActivity.class);
                 break;
             case "算法":
                 intent.setClass(this, AlgorithmActivity.class);

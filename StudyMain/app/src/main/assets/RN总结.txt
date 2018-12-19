@@ -45,6 +45,12 @@
 
 3，redux 的用法
 
+在标准的MVC框架中，数据可以在UI组件和存储之间双向流动，而Redux严格限制了数据只能在一个方向上流动。
+store：  所有的数据（比如state）被保存在一个被称为store的容器中 → 在一个应用程序中只能有一个。store本质上是一个状态树，保存了所有对象的状态
+action：任何UI组件都可以直接从store访问特定对象的状态。要通过本地或远程组件更改状态，需要分发一个action
+reducer：当一个store接收到一个action，它将把这个action代理给相关的reducer。reducer是一个纯函数， 用于更新 store 里的 state
+
+componet   触发  -> 发送 action ->  reducer 接受处理 ->  更新state ->通知ui更新
 
 
 4，组件的生命周期
@@ -62,7 +68,7 @@
          运行中:
            componentWillReceiveProps(nextProps)：props改变（父容器来更改或是redux），将会调用该函数。新的props将会作为参数传递进来，老的props可以根据this.props来获取。我们可以在该函数中对state作一些处理。注意：在该函数中更新state不会引起二次渲染。
 
-           boolean shouldComponentUpdate(object nextProps, object nextState)：该函数传递过来两个参数，新的state和新的props。state和props的改变都会调到该函数。该函数主要对传递过来的nextProps和nextState作判断。如果返回true则重新渲染，如果返回false则不重新渲染。在某些特定条件下，我们可以根据传递过来的props和state来选择更新或者不更新，从而提高效率。
+           boolean shouldComponentUpdate(object nextProps, object nextState)：调用setState 会触发，该函数传递过来两个参数，新的state和新的props。state和props的改变都会调到该函数。该函数主要对传递过来的nextProps和nextState作判断。如果返回true则重新渲染，如果返回false则不重新渲染。在某些特定条件下，我们可以根据传递过来的props和state来选择更新或者不更新，从而提高效率。
 
            componentWillUpdate(object nextProps, object nextState)：与componentWillMount方法类似，组件上会接收到新的props或者state渲染之前，调用该方法。但是不可以在该方法中更新state和props。
 
@@ -96,6 +102,14 @@ error：是否出错
 meta：可选参数
 
 
+8，RN 的 FlexBox 布局
+
+容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）
+项目默认沿主轴排列，单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size
+
+
+9，RN热更新
+CodePush 是微软提供的一套用于热更新 React Native 和 Cordova 应用的服务。
 
 
 

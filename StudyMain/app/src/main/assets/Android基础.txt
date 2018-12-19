@@ -236,3 +236,47 @@ http://gityuan.com/
 
 
 
+
+1，让他描述一个曾经解决的最难的问题
+
+
+
+2. 什么是FC？如何避免FC的发生，另外FC发生时如何捕获相应的 uncaught exception？
+		UncaughtExceptionHandler捕获全局性异常
+		自定义 class CrashHandler implements UncaughtExceptionHandler， 在Application初始化的时候 把 UncaughtExceptionHandler 交给自定义的类来处理
+
+
+
+3. Asynctask的优缺点？能否同时并发100+asynctask呢？
+  Android的AsyncTask比Handler更轻量级一些，适用于简单的异步处理。
+  过程可控，提供了回调方法，后台任务执行完毕后会返回需要的数据，拿到数据后可以直接更新UI控件
+   AsyncTask用的是线程池机制，容量是128，最多同时运行5个core线程，剩下的排队。（最大只支持5个并发）
+
+	AsyncTask 为什么不适合特别耗时的任务？
+	AsyncTask的生命周期没有跟Activity的生命周期同步
+	cancel的时候，并不能中断已经开始的任务，因为不能中断正在执行的Thread
+
+
+4，函数调用Trace 怎么玩
+    TraceView 是 Android 平台配备一个很好的性能分析的工具。它可以通过图形化的方式让我们了解我们要跟踪的程序的性能，并且能具体到 method。
+
+5，贪吃蛇，扫雷
+
+
+6，怎么理解Activity和Fragment的关系？
+
+
+9，sdk自带的工具你常用的有哪些
+9-patch
+ProGuard混淆
+adb 命令
+	Monkey 手动模拟点击
+
+
+
+10，RXjava 原理 ，响应式事件流，观察者模式
+
+
+
+
+

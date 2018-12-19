@@ -3,9 +3,9 @@
     package="com.carboxtech.studymain">
 
     <application
-        android:label="@string/app_name"
         android:allowBackup="true"
         android:icon="@mipmap/face"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/face"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -27,7 +27,8 @@
         <activity android:name=".virtualmachine.VmActivity" />
         <activity android:name=".network.NetworkActivity" />
         <activity android:name=".algorithm.AlgorithmActivity" />
-        <activity android:name=".androidBase.AndroidBaseActivity"></activity>
+        <activity android:name=".androidBase.AndroidBaseActivity" />
+        <activity android:name=".rn.RNActivity"></activity>
     </application>
 
 </manifest>

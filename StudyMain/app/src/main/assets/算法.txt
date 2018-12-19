@@ -57,6 +57,16 @@
 
 
 
+15 ，数据加密算法
+
+简单的java加密算法有：
+
+BASE64 严格地说，属于编码格式，而非加密算法（配合异或）
+MD5(Message Digest algorithm 5，信息摘要算法)
+SHA(Secure Hash Algorithm，安全散列算法)
+HMAC(Hash Message Authentication Code，散列消息鉴别码)
+
+
 
 
 
