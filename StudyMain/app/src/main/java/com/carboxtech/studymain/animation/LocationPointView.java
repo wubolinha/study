@@ -156,4 +156,7 @@ public class LocationPointView extends View {
             super.postInvalidate();
         }
     }
+
+
+
 }

@@ -4,30 +4,100 @@
 简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
 
 
+1,TabLayout如何设置指示器的宽度包裹内容？
+    Tablayout 继承自 HorizontalScrollView，用作页面切换指示器.
+    问题分析： 原生TabLayout的指示器宽度等于每个tab的宽度，远大于 tab内文字标题的宽度
+    那么我们可以通过反射获取Tablayout的mTabStrip，循环获取到子view，设置leftMargin，rightMargin就可以压缩tab的宽度了。
+    https://www.jianshu.com/p/fde38f367019
 
-TabLayout如何设置指示器的宽度包裹内容？
 公差为1的等差数列求和，如何优化
-自己的优势在哪里
-注解如何获取，反射为何耗性能？
-Java的GC机制，分代回收策略
-Binder机制：ServiceManager什么时候注册的？
-int,long的取值范围以及BigDecimal，数值越界了如何处理？
+    for循环求值
+    前n项和公式为：Sn=a1*n+[n*(n-1)*d]/2
+
+
+自己的优势在哪里？
+
+
+2，注解如何获取，反射为何耗性能？
+
+        反射概念;JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
+        java反射之所以慢，最主要的就是就是编译器没法对反射相关的代码做优化.
+        其实慢的原因还有安全检查，访问控制等,使用名字去查找对应方法等
+
+3，Java的GC机制，分代回收策略
+    java垃圾回收算法实现原理，有两种，一个是引用计数法，一个是引用可达法。
+    垃圾回收算法有3种：
+            1.标记清除
+            2.复制清除
+            3.标记整理
+    java内存模型将内存区域分为，
+        新生代：
+        老年代：
+        永久代：
+    JVM有个叫做“安全点”和“安全区域”的东西，在发生GC时，所有的线程都会执行到“安全点”停下来。
+    在需要GC的时候，JVM会设置一个标志，当线程执行到安全点的时候会轮询检测这个标志，如果发现需要GC，则线程会自己挂起，直到GC结束才恢复运行。
+    安全区域是一段代码段，在这段代码段中对象的引用关系不会发生变化
+
+
+4，Binder机制：ServiceManager 什么时候注册的？
+    在init进程启动的过程中会去解析init.rc文件,然后启动 ServiceManager
+    ServiceManager 和 zygote 一样，是由init 进程创建，Service manager是管理 SystemServer（AMS，WMS，PMS） 的一个进程
+    zygote 启动 SystemServer
+    Android系统进程间通信机制Binder的总体架构由Client、Server、ServiceManager 和驱动程序 Binder 四个组件构成
+
+    servicemanager:启动 Binder IPC,管理所有的 Android 系统服务。ServiceManager是一个守护进程，负责管理Server并向Client提供查询Server的功能。
+    内部维护一个list来记录已经注册的所有的service，统一管理，向Client提供查询服务。
+
+
+7，int,long的取值范围以及BigDecimal，数值越界了如何处理？
+    基本类型：int 二进制位数：32
+    最小值：Integer.MIN_VALUE= -2147483648 （-2的31次方）
+    最大值：Integer.MAX_VALUE= 2147483647  （2的31次方-1）
+
+    基本类型：long 二进制位数：64
+    最小值：Long.MIN_VALUE=-9223372036854775808 （-2的63次方）
+    最大值：Long.MAX_VALUE=9223372036854775807 （2的63次方-1）
+
+    强制转换是取低位字节（补码，反码，原码），内存中存储的是补码。
+
 ConcurrentHashMap的原理，分的段数是多少？
+    锁分段，并发级别为默认值16，也就是段的个数。
+
 APP是如何适配的？
+    https://blog.csdn.net/zhaokaiqiang1992/article/details/45419023
+
 Android中如何查看一个对象的回收情况？
+    使用AndroidProfile 的内存 工具，Dump Java Heap  ，
+    会抓取 10秒的 堆内存信息，然后自动翻译显示成可查看的格式，可以按照包名来展示
+    Java对象执行了 finalize() 方法(进程退出，都不一样会执行gc)
+
 最大一次线上Bug处理措施
 
 
 
 MVP如何管理Presenter的生命周期，何时取消网络请求
-用过的框架及原理
-天猫的Tangram布局，vLayout原理
+1，Application 类管理Presenter的生命周期
+2，Loader 类 管理Presenter的生命周期,解决跨 configuration 的数据缓存和持久化问题，其不受设备横竖屏切换影响
 
+高级MVP框架
+1, Presenter 的生命周期控制：
+ （ Beam 框架：Presenter 与 Activity 的绑定关系应由静态类管理，而不是由 Activity 管理。
+      当 Activity 意外重启时 Presenter 不应重启，只需在 Activity 重启时，
+      让 Presenter 与 Activity 重新绑定，并根据数据恢复 Activity 状态即可。
+      而当 Activity 真正销毁时，对应 Presenter 才应该跟随销毁。  ）
+2, RxJava 在MVP中的运用（ 图片id — 子线程获取bitmap - ui线程展示  ）
+
+
+
+用过的框架及原理
+天猫的 Tangram 布局(  七巧板布局 )，vLayout原理
+        天猫团队开源跨平台模块化 UI 界面开发框架 Tangram
+屏幕旋转
 
 
 APP的启动流程
 回形打印二维数组
-Java为何引入泛型，泛型边界
+Java为何引入泛型，泛型边界  //  泛型的好处是在编译的时候检查类型安全，保证参数类型一致性
 常见的Java数据结构
 ArrayMap跟SparseArray在HashMap上面的改进
 Java的四种引用及使用场景
@@ -36,18 +106,18 @@ Webview性能优化
 
 
 Binder机制
-ClassLoader的理解
+ClassLoader的理解  https://juejin.im/post/5a28e7e86fb9a045117105c3
 Arouter的原理
 组件化原理，组件化中路由的实现
 热修复跟插件化的原理
 线程池的几个参数的理解，四种线程池的使用场景
-常用的设计模式，手写DCL单例模式
-进程间为什么不能直接进行通信
+常用的设计模式，手写DCL单例模式（Double check the lock）
+进程间为什么不能直接进行通信？ 安全性的考虑，应用所在的内存是独立的，无法相互访问，各个应用的数据都在自己的内存中。
 应用跟系统之间通信什么时候用Socket什么时候用Binder
-Android的Hook插桩技术
+Android的Hook,插桩技术
 
 
-Debug跟Release的APK的区别
+Debug跟Release的APK的区别(  打包参数优化，签名，混淆 )
 软引用跟弱引用的区别
 ConcurrentHashmap的原理
 Listview跟Recyclerview的区别（刷新，缓存，各自的使用场景）
@@ -56,6 +126,7 @@ Listview跟Recyclerview的区别（刷新，缓存，各自的使用场景）
 事件分发：Activity跟window依次到viewgroup
 Volley源码，优缺点
 Picasso传入的Activity跟Application的context的区别
+快速排序
 
 
 数据库的升级，表结构的修改
