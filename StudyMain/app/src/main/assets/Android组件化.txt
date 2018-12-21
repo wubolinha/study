@@ -20,5 +20,28 @@ https://blog.csdn.net/guiying712/article/details/78057120
 https://blog.csdn.net/cdecde111/article/details/79322846
 
 
+组件化：
+    路由框架
+
+
+插件化：
+
+
+热更新：
+
+
+动态代理 中 接口的作用
+
+
+有接口的话就动态代理，没接口就Hook
+Hook例子：https://www.jianshu.com/p/4f6d20076922
+插桩： AOP编程（ AspectJ框架 ）
+
+这些也是AOP编程;
+Android中hook框架已经非常多了，最优秀的当属Xposed和Substrate了
+Legend 是Android 免Root 环境下的一个Apk Hook 框架
+
+
+组件化原理，模块化机制
 
 

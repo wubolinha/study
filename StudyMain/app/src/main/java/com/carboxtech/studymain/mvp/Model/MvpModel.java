@@ -1,8 +1,11 @@
 package com.carboxtech.studymain.mvp.Model;
 
 import android.os.Handler;
+import android.support.v7.widget.RecyclerView;
 
 import com.carboxtech.studymain.mvp.Interface.MvpCallback;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by admin on 2018/11/22.
@@ -13,7 +16,8 @@ import com.carboxtech.studymain.mvp.Interface.MvpCallback;
 
 public class MvpModel {
 
-        public static void  getNetData(final String para ,final MvpCallback callback){
+
+    public static void  getNetData(final String para ,final MvpCallback callback){
 
              new Handler().postDelayed(new Runnable() {
                  @Override

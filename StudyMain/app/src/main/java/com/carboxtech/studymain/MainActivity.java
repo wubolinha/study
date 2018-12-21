@@ -23,6 +23,8 @@ import com.carboxtech.studymain.mvp.MvpTestActivity;
 import com.carboxtech.studymain.network.NetworkActivity;
 import com.carboxtech.studymain.rn.RNActivity;
 
+import java.lang.reflect.Method;
+
 public class MainActivity extends Activity {
 
     private ListView listview;
@@ -122,6 +124,8 @@ public class MainActivity extends Activity {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+
+
 
     }
 
