@@ -6,17 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.carboxtech.moduletest1.OutPutTest;
+import com.carboxtech.moduletest1.RouterManager;
 import com.carboxtech.studymain.algorithm.AlgorithmActivity;
 import com.carboxtech.studymain.androidBase.AndroidBaseActivity;
 import com.carboxtech.studymain.animation.AnimationActivity;
+
 import com.carboxtech.studymain.aspectJ.DebugTool;
-import com.carboxtech.studymain.dagger2.TestDaggerActivity;
 import com.carboxtech.studymain.javabase.JavaBaseTestActivity;
 import com.carboxtech.studymain.javabase.JavaThreadTestActivity;
 import com.carboxtech.studymain.mvp.MvpTestActivity;
@@ -25,7 +28,7 @@ import com.carboxtech.studymain.rn.RNActivity;
 
 import java.lang.reflect.Method;
 
-public class MainActivity extends Activity {
+public   class MainActivity extends Activity {
 
     private ListView listview;
     private String[] data;
@@ -38,12 +41,12 @@ public class MainActivity extends Activity {
         listview = findViewById(R.id.listview);
         initListView();
 
-        try {
-            testAop();
-            testAnnotation(  123);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            testAop();
+//            testAnnotation(  123);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     // 测试 aspectJ  的 Advise
@@ -56,16 +59,13 @@ public class MainActivity extends Activity {
         Log.w("test","testAop  起床了 ");
     }
     // 测试 aspectJ 自定义注解
-    @DebugTool
+     @DebugTool
     private void testAnnotation( int value ) throws InterruptedException {
 
         Log.w("test","testAnnotation   测试自定义注解 "+value);
 //        for(int i=0;i<40;i++){
 //            Thread.sleep(100);
 //        }
-
-        Handler handler=new Handler();
-
 
     }
 
@@ -88,9 +88,12 @@ public class MainActivity extends Activity {
     private void  startAty(int i ){
         Intent intent=new Intent();
         Log.w("test","list item:  "+data[i]);
+        String ActivityPath="";
         switch (data[i]){
             case "Dagger2":
-                intent.setClass(this, TestDaggerActivity.class);
+               // intent.setClass(this, TestDaggerActivity.class);
+                ActivityPath= RouterManager.TestDaggerActivity;
+                //ActivityPath= RouterManager.Module1MainActivity;
                 break;
             case "MVP":
 
@@ -119,12 +122,14 @@ public class MainActivity extends Activity {
                 intent.setClass(this, AndroidBaseActivity.class);
                 break;
         }
-        try {
-            startActivity( intent );
-        }catch (Exception ex){
-            ex.printStackTrace();
+//        try {
+//            startActivity( intent );
+//        }catch (Exception ex){
+//            ex.printStackTrace();
+//        }
+        if(! TextUtils.isEmpty(ActivityPath)){
+            RouterManager.instance.jumpActivity(this,ActivityPath   );
         }
-
 
 
     }

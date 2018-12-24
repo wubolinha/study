@@ -7,8 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.carboxtech.moduletest1.RouterManager;
 import com.carboxtech.studymain.MainActivity;
 import com.carboxtech.studymain.R;
+
 import com.carboxtech.studymain.dagger2.Base1.DaggerPlatformComponent;
 import com.carboxtech.studymain.dagger2.Base2.DaggerWaiMaiPlatformComponent;
 import com.carboxtech.studymain.dagger2.Base2.ShangJiaModule;
@@ -31,6 +34,7 @@ import javax.inject.Inject;
  *
  *
  **********/
+@Route(path = RouterManager.TestDaggerActivity)
 public class TestDaggerActivity extends AppCompatActivity {
 
     Button daggerbt1,daggerbt2,daggerbt3,daggerbt4,daggerbt5,daggerbt6;

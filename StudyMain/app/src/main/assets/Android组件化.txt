@@ -43,5 +43,26 @@ Legend 是Android 免Root 环境下的一个Apk Hook 框架
 
 
 组件化原理，模块化机制
+    先实现app的模块化，再实现app的组件化，如果一个app的模块可以单独运行，那么可以说这个app实现了组件化开发.
+
+    组件化第一步：
+    1）在gradle.properties写个属性例如isLib=true之类的，在组件的配置文件中加入
+         if (isLib.toBoolean()) {
+                apply plugin: 'com.android.library'
+             } else {
+               apply plugin: 'com.android.application'
+         }
+    2）配置单独的 AndroidMenifest：
+        sourceSets {
+            main {
+                     if (isLib.toBoolean()) {
+    			        manifest.srcFile 'src/main/release/AndroidManifest.xml'
+                     } else {
+                     manifest.srcFile 'src/main/moudle/AndroidManifest.xml'
+                }
+            }
+            }
+    3）每个组件都可能会有自己的 Application 类，所以还要处理 AndroidMenifest中 Application 类的合并
+
 
 
