@@ -21,7 +21,7 @@ https://blog.csdn.net/cdecde111/article/details/79322846
 
 
 组件化：
-    路由框架
+    路由框架 Arouter
 
 
 插件化：
@@ -63,6 +63,6 @@ Legend 是Android 免Root 环境下的一个Apk Hook 框架
             }
             }
     3）每个组件都可能会有自己的 Application 类，所以还要处理 AndroidMenifest中 Application 类的合并
-
+        （使用反射）https://blog.csdn.net/qq_32452623/article/details/82086470
 
 
