@@ -29,7 +29,8 @@
         <activity android:name=".network.NetworkActivity" />
         <activity android:name=".algorithm.AlgorithmActivity" />
         <activity android:name=".androidBase.AndroidBaseActivity" />
-        <activity android:name=".rn.RNActivity"></activity>
+        <activity android:name=".rn.RNActivity" />
+        <activity android:name=".database.DataBaseActivity"></activity>
     </application>
 
 </manifest>

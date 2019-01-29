@@ -37,18 +37,18 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
 
-    // rxjava2
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.4'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-
     // dagger2
     compile 'com.google.dagger:dagger:2.4'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
 
 
-    compile project(path: ':moduletest1')
-}
+    if (!isModule1Dev.toBoolean()) {
+        compile project(path: ':moduletest1')
+    }
 
+    compile project(path: ':modulebase')
+
+}
 
 /******
  *

@@ -66,3 +66,18 @@ Legend 是Android 免Root 环境下的一个Apk Hook 框架
         （使用反射）https://blog.csdn.net/qq_32452623/article/details/82086470
 
 
+
+
+
+组件化中遇到的问题
+
+1，各个版本sdk和库不一致的问题
+    解决方案是通过在gradle.properties文件中定义常用的编译配置，然后在各moudle中引用该配置
+
+
+2. 组件的编译:
+    cd  moduletest1
+    ..\gradlew assembleDebug
+
+
+

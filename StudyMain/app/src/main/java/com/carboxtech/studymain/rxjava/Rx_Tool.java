@@ -54,7 +54,6 @@ public enum Rx_Tool {
     /************
      *  指定被观察者线程, 要注意的时，如果多次调用此方法，只有第一次有效。
      * **************************/
-
     public void tool_subscribeOn() {
 
         Observable.create(new ObservableOnSubscribe<String>() {
@@ -89,7 +88,6 @@ public enum Rx_Tool {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-
             }
         })
           .observeOn( Schedulers.io() )             // 切换观察者线程
@@ -99,8 +97,8 @@ public enum Rx_Tool {
                 return 111;
             }
           })
-           .observeOn(AndroidSchedulers.mainThread() )  // 切换观察者线程
-            .subscribe(new Observer<Integer>() {   //  subscribe 运行在 AndroidSchedulers.mainThread()
+          .observeOn(AndroidSchedulers.mainThread() )  // 切换观察者线程
+          .subscribe(new Observer<Integer>() {   //  subscribe 运行在 AndroidSchedulers.mainThread()
             @Override
             public void onSubscribe(Disposable d) {
 

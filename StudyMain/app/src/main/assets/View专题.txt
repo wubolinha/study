@@ -101,3 +101,47 @@ ViewRootImpl：  每个界面上的 View 的刷新，绘制，点击事件的分
    渲染帧率、内存
 
 
+13，如何发现过度绘制？
+
+    我们可以通过手机设置里面的 开发者选项 ，打开 显示过渡绘制区域（Show GPU Overdraw 的选项，可以观察 UI 上的 Overdraw 情况。
+    深红： 意味着overdraw 4倍。像素绘制了五次或者更多。这是错误的，要修复它们。
+    Overdraw 有时候是因为你的UI布局存在大量重叠的部分，还有的时候是因为非必须的重叠背景。
+    使用 Hierarchy View  分析UI性能
+
+
+
+Canvas对象的获取方式有两种：一种我们通过重写View.onDraw方法，View中的Canvas对象会被当做参数传递过来，我们操作这个Canvas，效果会直接反应在View中。另一种就是当你想创建一个Canvas对象时使用的方法：
+Bitmap b = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+Canvas c = new Canvas(b);
+上面代码创建了一个尺寸是100*100的Bitmap，使用它作为Canvas操作的对象，
+
+
+Android中 Canvas相关api：
+•drawXxx方法族：以一定的坐标值在当前画图区域画图，另外图层会叠加， 即后面绘画的图层会覆盖前面绘画的图层。
+•clipXXX方法族：在当前的画图区域裁剪(clip)出一个新的画图区域，这个 画图区域就是canvas对象的当前画图区域了。比如：clipRect(new Rect())， 那么该矩形区域就是canvas的当前画图区域
+•getXxx方法族：获得与Canvas相关一些值，比如宽高，屏幕密度等。
+•save()，restore()，saveLayer()，restoreToCount()等保存恢复图层的方法
+•translate(平移)，scale(缩放)，rotate(旋转)，skew(倾斜)
+
+Android裁剪图片为圆形图片：
+1，https://blog.csdn.net/kkmike999/article/details/16359713，这是使用 Xfermode 绘制圆角（共有16种模式）
+2，使用 RoundedBitmapDrawable类直接裁剪
+3，使用 BitmapShader 实现
+
+
+
+  canvas.drawBitmap(mBitmap, mSrcRect, mDestRect, mBitPaint);
+
+
+ /**
+
+       绘制圆环的三种方式：https://blog.csdn.net/u011494050/article/details/39251239
+
+
+
+
+
+
+。
+
+

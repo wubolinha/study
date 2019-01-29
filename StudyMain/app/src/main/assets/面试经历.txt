@@ -306,13 +306,13 @@ MVC,MVVM,Clean架构
 对Java.nio了解多少
 ConcurrentHashMap是如何实现分段锁？
 现在需要遍历SD卡下所有的文件打印出后缀名为.txt文件名称，如何提高时间效率？
-为什么复写equals方法的同时需要复写hashcode方法，前者相同后者是否相同，反过来呢？为什么？
+为什么复写equals方法的同时需要复写hashcode方法，前者相同后者是否相同，反过来呢？为什么？（    hashcode，hashmap ）
 Android4.0～8.0之间大的变化，如何处理？
-说一下Measurespec这个类
-ViewHolder有什么用？
+说一下 Measurespec 这个类
+ViewHolder 有什么用？
 Gradle的Flavor能否配置sourceset？
 线程池核心线程数一般定义多少，为什么？
-Intentservice有什么用
+Intentservice 有什么用
 弱引用什么时候被回收
 Android中提供了哪些类来帮忙处理线程
 http的状态码，常见的请求头，http缓存协议https如何加密
@@ -485,6 +485,6 @@ Activity之间传递数据为什么要序列化？
 來源：简书
 简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
 
-
+https://www.jianshu.com/p/9ed2c2f2a52c
 
 

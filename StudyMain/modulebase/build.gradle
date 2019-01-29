@@ -1,9 +1,4 @@
-if (isModule1Dev.toBoolean()) {
-    apply plugin: 'com.android.application'
-} else {
-    apply plugin: 'com.android.library'
-}
-
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
@@ -17,7 +12,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
@@ -32,16 +26,6 @@ android {
         }
     }
 
-    // 配置组件运行必须的单独的 AndroidMenifest：
-    sourceSets {
-        main {
-            if (isModule1Dev.toBoolean()) {
-                manifest.srcFile 'src/main/moudle/AndroidManifest.xml'
-            } else {
-                manifest.srcFile 'src/main/release/AndroidManifest.xml'
-            }
-        }
-    }
 }
 
 dependencies {
@@ -52,6 +36,13 @@ dependencies {
     compile 'com.android.support:design:26.+'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    // rxjava2
+    compile 'io.reactivex.rxjava2:rxjava:2.1.4'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
-    compile project(path: ':modulebase')
+
+    // Arouter
+    compile 'com.alibaba:arouter-api:1.4.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+
 }

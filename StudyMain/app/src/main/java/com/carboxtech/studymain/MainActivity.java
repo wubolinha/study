@@ -19,6 +19,7 @@ import com.carboxtech.studymain.algorithm.AlgorithmActivity;
 import com.carboxtech.studymain.androidBase.AndroidBaseActivity;
 import com.carboxtech.studymain.animation.AnimationActivity;
 
+import com.carboxtech.studymain.annotation.School;
 import com.carboxtech.studymain.aspectJ.DebugTool;
 import com.carboxtech.studymain.javabase.JavaBaseTestActivity;
 import com.carboxtech.studymain.javabase.JavaThreadTestActivity;
@@ -26,7 +27,11 @@ import com.carboxtech.studymain.mvp.MvpTestActivity;
 import com.carboxtech.studymain.network.NetworkActivity;
 import com.carboxtech.studymain.rn.RNActivity;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+
+import javax.crypto.KeyGenerator;
 
 public   class MainActivity extends Activity {
 
@@ -47,6 +52,9 @@ public   class MainActivity extends Activity {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+        School.initValue();//注解
+
+
     }
 
     // 测试 aspectJ  的 Advise
@@ -57,6 +65,11 @@ public   class MainActivity extends Activity {
 //            Thread.sleep(100);
 //        }
         Log.w("test","testAop  起床了 ");
+
+
+
+
+
     }
     // 测试 aspectJ 自定义注解
      @DebugTool
