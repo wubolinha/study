@@ -118,6 +118,7 @@ Java中线程安全的容器主要包括两类：
 解决：　在遍历的时候在代码中对  list 加锁
 
 
+
 13 想进大厂？50个多线程面试题，你会多少？（一）
 https://zhuanlan.zhihu.com/p/34678757
 
@@ -127,4 +128,26 @@ https://zhuanlan.zhihu.com/p/34678757
         不会，锁住的对象不一样
 
 
+15, java 中有哪些锁？
 
+synchronized, 自己开锁，代码走完后自己解锁   （  wait ，notify，notifyAll）
+lock  (接口),  手动开锁、解锁 , 用Lock必须在try{}catch{}块中进行，并且将释放锁的操作放在finally块中进行，以保证锁一定被被释放，防止死锁的发生
+ReentrantLock,意思是“可重入锁”，ReentrantLock是唯一实现了Lock接口的类
+ReadWriteLock（接口），在它里面只定义了两个方法：readLock(); writeLock();
+
+
+
+wait(),notify(),notifyAll()三个方法不是Thread的方法，而是Object的方法。意味着所有对象都有这三个方法，因为每个对象都有锁
+
+
+总结来说，Lock和synchronized有以下几点不同：
+
+　　1）Lock是一个接口，而synchronized是Java中的关键字，synchronized是内置的语言实现；
+
+　　2）synchronized在发生异常时，会自动释放线程占有的锁，因此不会导致死锁现象发生；而Lock在发生异常时，如果没有主动通过unLock()去释放锁，则很可能造成死锁现象，因此使用Lock时需要在finally块中释放锁；
+
+　　3）Lock可以让等待锁的线程响应中断，而synchronized却不行，使用synchronized时，等待的线程会一直等待下去，不能够响应中断；
+
+　　4）通过Lock可以知道有没有成功获取锁，而synchronized却无法办到。
+
+　　5）Lock可以提高多个线程进行读操作的效率。

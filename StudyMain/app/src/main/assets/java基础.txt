@@ -99,6 +99,9 @@ https://blog.csdn.net/self_study/article/details/55050627
 9,hash冲突
 HashMap中调用hashCode()方法来计算hashCode。
 由于在Java中两个不同的对象可能有一样的hashCode,所以不同的键可能有一样hashCode，从而导致冲突的产生。
+由于为了提高程序的效率才实现了hashcode方法，先进行hashcode的比较，如果不同，
+那没就不必在进行equals的比较了，这样就大大减少了equals比较的次数，这对比需要比较的数量很大的效率提高是很明显的，一个很好的例子就是在集合中的使用；
+
 
 
 10 概念（三种引用强度依次递减）

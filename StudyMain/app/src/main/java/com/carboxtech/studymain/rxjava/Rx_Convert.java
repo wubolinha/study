@@ -23,7 +23,7 @@ public enum Rx_Convert {
 
 
     /*****************   map 可以将被观察者发送的数据类型转变成其他的类型  *********************************/
-
+  //   1 对  1 的转化
     public void convert_map(){
         Observable.just(1, 2, 3)
                 .map(new Function<Integer, String>() {   // 返回的是 结果集合(多个 Observable)
@@ -42,7 +42,7 @@ public enum Rx_Convert {
 
     /**************** flatMap:  这个方法可以将事件序列中的元素进行整合加工，返回一个新的被观察者。********/
     /****************       返回的数据是无序的          **********************/
-
+    // 1对 多 的转化
     public void convert_flatMap(){
         // flatmap返回的是包含结果集的Observable
         Observable.just(1, 2, 3)
@@ -72,6 +72,16 @@ public enum Rx_Convert {
     }
 
 
+    /*****
+     *
+     *  失败后重试
+     * ****/
+    public void  retrywhen(){
+
+       // 当.repeat()接收到.onCompleted()事件后触发重订阅。
+       // 当.retry()接收到.onError()事件后触发重订阅。
+
+    }
 
 
 }

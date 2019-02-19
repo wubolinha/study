@@ -6,7 +6,7 @@
 
 
 2，Activity的启动和布局创建过程
-    ZygoteInit启动->ActivityThread.mian ->创建主线程Looper循环->
+    ZygoteInit启动->ActivityThread.main ->创建主线程Looper循环->
     AMS(ActivityManagerService的要求，通过IApplicationTHread的接口)负责调度和执行activities、broadcasts和其它操作
     ApplicationThread：首先它不是一个线程，而是一个Binder对象
 
@@ -77,7 +77,7 @@ https://www.jianshu.com/p/fb7d48083e5e?utm_campaign=maleskine&utm_content=note&u
 
 11，Android中特有的数据结构
 
-ArrayMap  : 对标java 中的 hashmap
+splashArray   : 对标java 中的 hashmap
 SparseBoolMap，SparseIntMap，SparseLongMap，LongSparseMap
 
 

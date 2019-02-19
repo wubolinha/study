@@ -149,7 +149,7 @@ Android开发中反射举例：  TabLayout的使用，下划线宽度需要自�
 
 
 Debug跟Release的APK的区别(  打包参数优化，签名，混淆 )
-软引用跟弱引用的区别
+软引用 跟 弱引用 的区别
 ConcurrentHashmap的原理
 Listview跟Recyclerview的区别（刷新，缓存，各自的使用场景）
 对谷歌新推出的Room架构
@@ -214,7 +214,7 @@ StringBuffer跟StringBuilder之间的区别：StringBuilder（不是线程安全
 View的绘制流程，事件分发
 Hashmap,Arraymap，SparseArray
 
-sparearray原理
+sparearray 原理
 
 四种引用
 MVP跟MVC的区别
@@ -462,7 +462,7 @@ Binder机制原理
 3.能不能动态add同一个布局
 4.Handler机制
 5.手写rxjava遍历数组
-6.scheme协议
+6.scheme协议   activity页面跳转协议，可以跳转到app的任意界面
 7.数组扩容
 8.listview和recyclerview的区别
 9.service
@@ -488,3 +488,140 @@ Activity之间传递数据为什么要序列化？
 https://www.jianshu.com/p/9ed2c2f2a52c
 
 
+作者：ZO01
+链接：https://www.zhihu.com/question/60949531/answer/579002882
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+下面为拼多多、饿了么、蚂蚁金服、哈啰出行等公司给我留下较深印象的一些java题
+
+private修饰的方法可以通过反射访问，那么private的意义是什么
+OOP思想中的private是针对 default，protect，public 而言的
+并不是为了安全
+
+
+Java类初始化顺序，对方法区和永久区的理解以及它们之间的关系
+
+1）方法区是规范层面的东西，规定了这一个区域要存放哪些东西
+（2）永久带或者是metaspace是对方法区的不同实现，是实现层面的东西。（有些虚拟机没有永久区）
+
+
+一个java文件有3个类，编译后有几个class文件
+对的
+
+
+局部变量使用前需要显式地赋值，否则编译通过不了，为什么这么设计
+局部变量量大频繁使用，如果由虚拟机来初始化会带来安全性的问题， 从安全性和速度上考虑，还是
+
+
+ReadWriteLock读写之间互斥吗
+读写锁：分为读锁和写锁，多个读锁不互斥，读锁与写锁互斥，这是由jvm自己控制的
+
+
+
+Semaphore拿到执行权的线程之间是否互斥
+
+写一个你认为最好的单例模式
+
+B树和B+树是解决什么样的问题的，怎样演化过来，之间区别
+
+写一个生产者消费者模式
+
+写一个死锁
+cpu 100%怎样定位
+String a = "ab"; String b = "a" + "b";  a == b 是否相等，为什么
+   int a = 1; 是原子性操作吗
+   可以用for循环直接删除ArrayList的特定元素吗？
+   可能会出现什么问题？怎样解决
+   新的任务提交到线程池，线程池是怎样处理AQS和CAS原理
+   synchronized底层实现原理volatile作用，
+   指令重排相关AOP和IOC原理
+   Spring怎样解决循环依赖的问题
+   dispatchServlet怎样分发任务的mysql给离散度低的字段建立索引会出现什么问题
+   ，具体说下原因其它经常问的HashMap底层实现原理，
+   常规的多线程问题考的太多了，
+   没什么新意就不写了平时不能光抱着应用Java的目的去学习，
+   要深入了解每个知识点背后底层实现原理，为什么这么设计，
+   比如问烂的HashMap 既然有hash进行排位还需要equals()作用是什么？就这个问题照样能问倒一些人，所以一定要抠细节，
+   真的把每个知识点搞懂一时记起来的就是这23个吧，
+   其它想起来后续补充，答案我这几天写个大纲吧--2019.1.23更新（加上了：写在前面的话；问题解答大纲；一些新面试题；）转载请注明出处，今天发现居然有人复制我的题目到其他网站，这本倒是没什么，关键是复制的题目当时我还没作答，看到里面存在明显错误的解答，这可能会给初学者带来困扰。感谢各位知友的关注，尤其感谢有人在评论区还作出有心的回答！先回答15个，剩下的回来解答，包括已回答的后续会进行优化。写在前面的话：1.面试主要分为两块：一块是考查工程师对基础知识（包括了技术广度、深度、对技术的热情度等）的掌握程度，因为基础知识决定了一个技术人员发展的上限；另一块是考察工程师的工程能力，比如：做过哪些项目？遇到最难的问题怎样解决的？说说最有成就感的一项任务？工程能力是考察工程师当下能为公司带来的利益。其它考核方面：抗压性、合作能力...暂且不说。2.Java只是一门语言，即使是Java工程师也不能局限于Java，要从面向对象语言本身，甚至从整个计算机体系，从工程实际出发看Java。3.很多知识在一般公司的开发中是用不到的，常有人戏称：“面试造火箭，工作拧螺丝”，但这只是通常情况下公司对程序员的标准——迅速产出，完成任务。个人观点：工程师为了自己职业的发展不能局限于公司对自己的要求，不能停留在应用层面，要能够很好地掌握基础知识，要多看源码，自己多实践，学成记得产出，比如多为开源社区贡献代码，帮助初学者指路等。有没有发现一个有意思的事情：“面试造火箭，工作拧螺丝”的背后其实是考察者内心深处普遍都认可基础知识的重要性（这一点仅为个人观点，不展开讲哈）。--以下为解答大纲，部分作了扩展1. 这题是一道思想题目，天天会碰到private，有没有想过这个问题？谈谈对java设计的认识程度，主要抓住两点：1.java的private修饰符并不是为了安全性设计的；2.从外部对对象进行常规调用时，能够看到清晰的类结构。2. 所有情况下的类初始化顺序，如果实际类中没有定义则跳过：父类静态变量——父类静态代码块——子类静态代码块——父类非静态变量——父类非静态代码块——父类构造函数——子类非静态变量——子类非静态代码块——子类构造函数。3. 方法区是jvm规范里要求的，永久区是Hotspot虚拟机对方法区的具体实现，前者是规范，后者是实现方式。jdk1.8作了改变。本题看看对方在思想层面对jvm的理解程度，很基础的一个题目。4. 文件中有几个类编译后就有几个class文件。5. 成员变量是可以不经初始化的，在类加载过程的准备阶段即可给它赋予默认值，但局部变量使用前需要显式赋予初始值，javac不是推断不出不可以这样做，而是没有这样做，对于成员变量而言，其赋值和取值访问的先后顺序具有不确定性，对于成员变量可以在一个方法调用前赋值，也可以在方法调用后进行，这是运行时发生的，编译器确定不了，交给jvm去做比较合适。而对于局部变量而言，其赋值和取值访问顺序是确定的。这样设计是一种约束，尽最大程度减少使用者犯错的可能（假使局部变量可以使用默认值，可能总会无意间忘记赋值，进而导致不可预期的情况出现）。6.  ReadWriteRock 读写锁，使用场景可分为读/读、读/写、写/写，除了读和读之间是共享的，其它都是互斥的，接着会讨论下怎样实现互斥锁和同步锁的， 想了解对方对AQS，CAS的掌握程度，技术学习的深度。7. Semaphore拿到执行权的线程之间是否互斥，Semaphore、CountDownLatch、CyclicBarrier、Exchanger 为java并发编程的4个辅助类，面试中常问的 CountDownLatch CyclicBarrier之间的区别，面试者肯定是经常碰到的， 所以问起来意义不大，Semaphore问的相对少一些，有些知识点如果没有使用过还是会忽略，Semaphore可有多把锁，可允许多个线程同时拥有执行权，这些有执行权的线程如并发访问同一对象，会产生线程安全问题。8. 写一个你认为最好的单例模式， 这题面试者都可能遇到过，也算是工作中最常遇到的设计模式之一，想考察面试者对经常碰到的题目的理解深度，单例一共有几种实现方式：饿汉、懒汉、静态内部类、枚举、双检锁，要是写了简单的懒汉式可能就会问：要是多线程情况下怎样保证线程安全呢，面试者可能说双检锁，那么聊聊为什么要两次校验，接着会问光是双检锁还会有什么问题，这时候基础好的面试者就会说了:对象在定义的时候加上volatile关键字，接下来会继续引申讨论下原子性和可见性、java内存模型、类的加载过程。其实没有最好，枚举方式、静态内部类、双检锁都是可以的，就想听下对不同的单例写法认识程度，写个双检锁的方式吧：public class Singleton {
+
+
+
+    private Singleton() {
+    }
+
+    private volatile static Singleton instance;
+
+    public static Singleton getInstance() {
+        if (null == instance) {
+            synchronized (Singleton.class) {
+                if (null == instance) {
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+
+}
+9. B树和B+树，这题既问mysql索引的实现原理，也问数据结构基础，首先从二叉树说起，因为会产生退化现象，提出了平衡二叉树，再提出怎样让每一层放的节点多一些来减少遍历高度，引申出m叉树，m叉搜索树同样会有退化现象，引出m叉平衡树，也就是B树，这时候每个节点既放了key也放了value，怎样使每个节点放尽可能多的key值，以减少遍历高度呢（访问磁盘次数），可以将每个节点只放key值，将value值放在叶子结点，在叶子结点的value值增加指向相邻节点指针，这就是优化后的B+树。然后谈谈数据库索引失效的情况，为什么给离散度低的字段（如性别）建立索引是不可取的，查询数据反而更慢，如果将离散度高的字段和性别建立联合索引会怎样，有什么需要注意的？10. 生产者消费者模式，synchronized锁住一个LinkedList，一个生产者，只要队列不满，生产后往里放，一个消费者只要队列不空，向外取，两者通过wait()和notify()进行协调，写好了会问怎样提高效率，最后会聊一聊消息队列设计精要思想及其使用。11. 写一个死锁，觉得这个问题真的很不错，经常说的死锁四个条件，背都能背上，那写一个看看，思想为：定义两个ArrayList,将他们都加上锁A,B，线程1,2，1拿住了锁A ，请求锁B，2拿住了锁B请求锁A，在等待对方释放锁的过程中谁也不让出已获得的锁。public class DeadLock {
+    public static void main(String[] args) {
+        final List<Integer> list1 = Arrays.asList(1, 2, 3);
+        final List<Integer> list2 = Arrays.asList(4, 5, 6);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (list1) {
+                    for (Integer i : list1) {
+                        System.out.println(i);
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    synchronized (list2) {
+                        for (Integer i : list2) {
+                            System.out.println(i);
+                        }
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (list2) {
+                    for (Integer i : list2) {
+                        System.out.println(i);
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    synchronized (list1) {
+                        for (Integer i : list1) {
+                            System.out.println(i);
+                        }
+                    }
+                }
+            }
+        }).start();
+
+    }
+}
+12. cpu 100%怎样定位，这题是一个应用性题目，网上搜一下即可，比较常见，说实话，把这题放进来有点后悔。
+13. String a = "ab"; String b = "a" + "b";  a ，b  是相等的（各位要写代码验证一下，我看到有人写了错误答案）。常规的问法是new一个对象赋给变量，问：这行表达式创建了几个对象，但这样的题目太常见。14. int a = 1; 是原子性操作。15.  for循环直接删除ArrayList中的特定元素是错的，不同的for循环会发生不同的错误，泛型for会抛出 ConcurrentModificationException，普通的for想要删除集合中重复且连续的元素，只能删除第一个。错误原因：打开JDK的ArrayList源码，看下ArrayList中的remove方法（注意ArrayList中的remove有两个同名方法，只是入参不同，这里看的是入参为Object的remove方法）是怎么实现的，一般情况下程序的执行路径会走到else路径下最终调用faseRemove方法,会执行System.arraycopy方法，导致删除元素时涉及到数组元素的移动。针对普通for循环的错误写法，在遍历第一个字符串b时因为符合删除条件，所以将该元素从数组中删除，并且将后一个元素移动（也就是第二个字符串b）至当前位置，导致下一次循环遍历时后一个字符串b并没有遍历到，所以无法删除。针对这种情况可以倒序删除的方式来避免解决方案：用 Iterator。 List<String> list = new  ArrayList(Arrays.asList("a", "b",  "b" , "c", "d"));
+ Iterator<String> iterator = list.iterator();
+       while(iterator.hasNext()) {
+           String element = iterator.next();
+           if(element.equals("b")) {
+               iterator.remove();
+           }
+    将本问题扩展一下，下面的代码可能会出现什么问题？ArrayList<String> array = new ArrayList<String>();
+array.add(1,"hello world");
+后加jvm gc 复制算法是怎样实现的注解的原理进程间通信的方式有哪些ReentrantLock 是可重入锁，什么是可重入锁线程执行过程中遇到异常会发生什么，怎样处理HashMap put()元素产生冲突，为什么用LinkedList（拉链法）而不用ArrayList解决，产生冲突时key值不等，新元素怎样加入链表，为什么这么设计（jdk1.8之前）双检锁写一个单例模式，为什么要用volatile修饰对象，Object object = new Object(); object为null吗？为什么Object object = new Object(); 初始化的顺序是什么在jvm各区域做了什么
