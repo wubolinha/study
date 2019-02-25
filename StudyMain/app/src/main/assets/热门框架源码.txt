@@ -1,16 +1,40 @@
 
-
 Retrofit 2.0
+okhttp
 
-
-动态代理有哪些
 
 
 EventBus:
 
 1,原理是什么？
-2，如何查找订阅者？
+2，如何查找订阅者？ EventBus2是通过反射获取类中以onEvent开头的方法名来遍历分发（运行期），EventBus3 默认是通过apt处理的（编译期）
+   （1）订阅者和订阅方法构成一个订阅事件，很多订阅事件组成一个订阅事件list
+   （2）事件类型 EventType 队列
+   （3）根据 EventType 事件类型队列  可以获取到  订阅事件 队列
+      也就是说  EventType 事件类型队列 + 订阅事件 队列 组成了一个大队列
+
+
 3，如何通知订阅者发布了事件？
+每个线程都会维护一个list事件队列
+如果是主线程，就是通过反射，直接运行订阅的方法，
+如果不是主线程，我们需要 mainThreadPoster 将我们的订阅事件入队列，类似于Handler线程模式
+
+
+编译期反射+apt注解处理器
+
+
+Rxjava源码解读
+
+1，事件流源头（observable）怎么发出数据
+2，响应者（subscriber）怎么收到数据
+3，怎么对事件流进行操作（operator/transformer）
+4，以及整个过程的调度（scheduler）
+
+
+
+okhttp源码解读：
+
+
 
 
 

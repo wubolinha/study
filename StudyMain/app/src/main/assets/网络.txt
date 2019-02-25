@@ -114,4 +114,9 @@ Http 1.0与1.1的区别
 
 设计一个数据下载模块（断点续传）
 
+HttpClient、HttpURLConnection、OKHttp和Volley优缺点和性能对比,如何选择？
+https://blog.csdn.net/langtop/article/details/77972855
+
+
+
 
